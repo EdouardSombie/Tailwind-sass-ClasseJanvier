@@ -25,10 +25,10 @@
   }
 }
 
-@layer utilities {
+@layer components {
   .pillButton {
-    @apply inline-block flex aspect-square w-8 items-center justify-center rounded-full bg-white leading-none;
-    & svg path {
+    @apply & svg path relative top-0 inline-block flex aspect-square w-8 items-center justify-center rounded-full bg-white leading-none transition-all duration-300 after:absolute after:top-[100%] after:h-1 after:w-full
+    after:content-none hover:top-[-0.25rem] hover:after:content-[''] {
       @apply fill-pink;
     }
   }
