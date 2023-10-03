@@ -1,0 +1,71 @@
+@use "functions" as f;
+
+@mixin roundImage($radius) {
+	display: inline-block;
+	width: $radius;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	object-position: center;
+	border-radius: f.rem(1000);
+}
+
+@mixin flexbox($direction, $wrap, $justify, $align, $gap: 0) {
+	display: flex;
+	flex-direction: #{$direction};
+	flex-wrap: #{$wrap};
+	justify-content: #{$justify};
+	align-items: #{$align};
+	gap: #{$gap};
+}
+
+@mixin textGradient($direction, $startColor, $endColor) {
+	background: linear-gradient(
+		to #{$direction},
+		#{$startColor} 0%,
+		#{$endColor} 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@mixin resetList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@mixin pillButton($width, $background, $color, $bigIcon: false) {
+	display: flex;
+	width: $width;
+	aspect-ratio: 1 / 1;
+	border-radius: f.rem(1000);
+	background: $background;
+	color: $color;
+	transition: all 0.25s;
+	position: relative;
+	top: 0;
+	svg {
+		margin: auto;
+		width: auto;
+		@if $bigIcon {
+			height: 75%;
+		} @else {
+			height: 50%;
+		}
+	}
+	path {
+		fill: currentColor;
+	}
+	&:hover {
+		top: -0.25rem;
+		&::after {
+			content: "";
+			width: 100%;
+			height: 0.25rem;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,162 @@
+@use "../partials/functions" as f;
+@use "../partials/mixins" as m;
+@use "../partials/variables" as *;
+@use "sass:map";
+
+.bioCard {
+	/* ce qui peut varier avec les modifiers ou les media queries (variables locales) */
+	--bgColor: var(--darkBlue);
+	--imageFilter: saturate(0);
+	--gradientColor1: var(--pink);
+	--gradientColor2: var(--orange);
+	--gradientColor3: var(--lightGreen);
+	--gradientColor4: var(--darkGreen);
+	--pillColor: var(--pink);
+	--pillAltColor: var(--black);
+	--separatorOpacity: 1;
+	--element-width: #{f.rem(320)};
+	/* une autre variable locale */
+	--padding: #{f.rem(32)};
+
+	width: var(--element-width);
+	border-radius: f.rem(16);
+	background-color: var(--bgColor);
+	color: var(--lightBlue);
+	padding: var(--padding);
+	letter-spacing: 0.01em;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 f.rem(2) f.rem(4) f.rem(2)
+		transparentize(map.get($colors, "black"), 0.75);
+	@include m.flexbox(column, nowrap, flex-start, center);
+
+	&__header {
+		position: absolute;
+		top: f.rem(16);
+		right: f.rem(16);
+		@include m.flexbox(row, nowrap, flex-end, flex-start);
+	}
+	&__img {
+		@include m.roundImage(#{f.rem(176)});
+		margin-bottom: f.rem(24);
+		filter: var(--imageFilter);
+	}
+	&__h1 {
+		font-size: f.rem(24);
+		line-height: 1;
+		margin-top: 0;
+		margin-bottom: f.rem(12);
+		@include m.textGradient(
+			bottom,
+			var(--gradientColor1),
+			var(--gradientColor2)
+		);
+	}
+	&__h2 {
+		font-size: f.rem(20);
+		line-height: 1;
+		font-weight: 400;
+		margin-top: 0;
+		margin-bottom: f.rem(24);
+	}
+	&__separator {
+		width: 100%;
+		border-color: var(--lightBlue);
+		margin-top: 0;
+		margin-bottom: f.rem(16);
+		opacity: var(--separatorOpacity);
+	}
+	&__p {
+		font-size: f.rem(16);
+		line-height: normal;
+		margin-top: 0;
+		margin-bottom: f.rem(56);
+	}
+	&__a {
+		@include m.pillButton(#{f.rem(32)}, var(--white), var(--pillColor), false);
+		&--alt {
+			@include m.pillButton(
+				#{f.rem(32)},
+				linear-gradient(
+					to bottom,
+					var(--gradientColor3) 0%,
+					var(--gradientColor4) 100%
+				),
+				var(--pillAltColor),
+				true
+			);
+		}
+	}
+	&__ul {
+		@include m.resetList;
+		@include m.flexbox(row, wrap, center, center, #{f.rem(24)});
+		position: relative;
+	}
+	&__footer {
+		position: relative;
+		align-self: stretch;
+		&::before {
+			content: "";
+			position: absolute;
+			top: calc(-1 * var(--padding));
+			left: calc(-1 * var(--padding));
+			right: calc(-1 * var(--padding));
+			bottom: calc(-2 * var(--padding));
+			transform: skewY(7deg);
+			background: linear-gradient(
+				-187deg,
+				var(--gradientColor2) 0%,
+				var(--gradientColor1) 60%
+			);
+			transition: all 0.5s;
+		}
+		&:hover {
+			&::before {
+				transform: skewY(0deg);
+				top: calc(-0.9 * var(--padding));
+			}
+		}
+	}
+
+	&--light {
+		--bgColor: var(--white);
+		--imageFilter: none;
+		--gradientColor1: var(--lightGreen);
+		--gradientColor2: var(--darkGreen);
+		--gradientColor3: var(--pink);
+		--gradientColor4: var(--orange);
+		--pillColor: var(--lightBlue);
+		--pillAltColor: var(--white);
+		--separatorOpacity: 0.5;
+	}
+
+	@media screen and (min-width: #{map.get($breakpoints, lg)}) {
+		--element-width: #{f.rem(720)};
+		flex-direction: row;
+		padding: 0;
+		text-align: left;
+		&__img {
+			width: #{f.rem(240)};
+			border-radius: 0;
+			align-self: stretch;
+			aspect-ratio: auto;
+			margin: 0;
+		}
+		&__content {
+			padding: f.rem(32) f.rem(20) f.rem(24) f.rem(20);
+			overflow: hidden;
+		}
+		&__footer {
+			&:before {
+				transform: skewY(2deg);
+				top: calc(-0.5 * var(--padding));
+				background: linear-gradient(
+					-182deg,
+					var(--gradientColor2) 0%,
+					var(--gradientColor1) 60%
+				);
+			}
+		}
+	}
+}

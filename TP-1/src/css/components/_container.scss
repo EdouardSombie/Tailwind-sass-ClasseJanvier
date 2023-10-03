@@ -1,0 +1,17 @@
+@use "../partials/variables";
+
+.container {
+	margin: 0 auto;
+	padding: 0 1rem;
+	width: 100%;
+	@each $name, $size in variables.$breakpoints {
+		@media screen and (min-width: #{$size}) {
+			max-width: $size;
+		}
+	}
+	&--row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+	}
+}
