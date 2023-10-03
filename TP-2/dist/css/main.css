@@ -588,6 +588,58 @@ body {
   }
 }
 
+.pillButton {
+  position: relative;
+  top: 0px;
+  display: inline-block;
+  display: flex;
+  aspect-ratio: 1 / 1;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  line-height: 1;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.pillButton::after {
+  position: absolute;
+  top: 100%;
+  height: 0.25rem;
+  width: 100%;
+  --tw-content: none;
+  content: var(--tw-content);
+}
+
+.pillButton:hover {
+  top: -0.25rem;
+}
+
+.pillButton:hover::after {
+  --tw-content: '';
+  content: var(--tw-content);
+}
+
+.pillButton {
+  & svg {
+    height: 50%;
+  }
+  & svg {
+    & path {
+      fill: #ff2896;
+    }
+    @media (prefers-color-scheme: dark) {
+      & path {
+        fill: #5d7a97;
+      }
+    }
+  }
+}
+
 /**
   * This injects Tailwind's utility classes and any utility classes registered
   * by plugins.
