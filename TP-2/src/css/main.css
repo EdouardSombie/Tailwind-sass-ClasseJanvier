@@ -1,0 +1,35 @@
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+
+/**
+  * This injects Tailwind's component classes and any component classes
+  * registered by plugins.
+  */
+@tailwind components;
+
+/**
+  * This injects Tailwind's utility classes and any utility classes registered
+  * by plugins.
+  */
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=auto");
+
+@layer base {
+  body {
+    font-family: "Istok Web", sans-serif;
+    @apply dark:bg-black;
+  }
+}
+
+@layer utilities {
+  .pillButton {
+    @apply inline-block flex aspect-square w-8 items-center justify-center rounded-full bg-white leading-none;
+    & svg path {
+      @apply fill-pink;
+    }
+  }
+}
